@@ -53,7 +53,10 @@ class LocaleResolver {
         if (!supportedLocales.contains(supportedLocale))
             throw new UnsupportedLocaleException();
 
-        MatchingLocales matchingPair = matchingAlgorithm.findMatch(supportedLocale, systemLocales);
+        MatchingLocales matchingPair = null;
+        if (preference.equals(LocalePreference.PreferSystemLocale)) {
+            matchingPair = matchingAlgorithm.findMatch(supportedLocale, systemLocales);
+        }
 
         return matchingPair != null ?
                 matchingPair.getPreferredLocale(preference) :
