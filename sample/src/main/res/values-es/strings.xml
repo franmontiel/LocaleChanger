@@ -18,8 +18,8 @@
     <string name="app_name">LocaleChanger Ejemplo</string>
 
     <string name="update_locale">Actualizar Locale</string>
-    <string name="current_locale">Locale en uso: %s</string>
-    <string name="date">Fecha: %s</string>
+    <string name="current_locale">Locale en uso:</string>
+    <string name="date">Fecha:</string>
     <string name="ask_permission">Pedir permiso</string>
     <string name="show_date_picker">Mostrar selector de fecha</string>
 

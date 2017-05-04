@@ -18,8 +18,8 @@
     <string name="app_name">Default- LocaleChanger Sample</string>
 
     <string name="update_locale">Default- Update Locale</string>
-    <string name="current_locale">Default- Current locale: %s</string>
-    <string name="date">Default- Date: %s</string>
+    <string name="current_locale">Default- Current locale:</string>
+    <string name="date">Default- Date:</string>
     <string name="ask_permission">Default- Ask permission</string>
     <string name="show_date_picker">Default- Show Date Picker</string>
 </resources>

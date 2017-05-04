@@ -29,7 +29,7 @@ import java.util.Locale;
  * Created by fj on 30/03/17.
  */
 
-public class MyApplication extends Application {
+public class SampleApplication extends Application {
 
     public static final List<Locale> SUPPORTED_LOCALES =
             Arrays.asList(

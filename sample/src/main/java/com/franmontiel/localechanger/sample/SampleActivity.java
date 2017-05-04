@@ -16,30 +16,24 @@
 
 package com.franmontiel.localechanger.sample;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.franmontiel.localechanger.LocaleChanger;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.franmontiel.localechanger.sample.MyApplication.SUPPORTED_LOCALES;
+import static com.franmontiel.localechanger.sample.SampleApplication.SUPPORTED_LOCALES;
 
-public class MainActivity extends AppCompatActivity {
+public class SampleActivity extends AppCompatActivity {
 
     @BindView(R.id.localeSpinner)
     Spinner localeSpinner;
@@ -56,22 +50,23 @@ public class MainActivity extends AppCompatActivity {
         recreate();
     }
 
-    @OnClick(R.id.showDatePicker)
-    void onShowDatePickerClick() {
-        Calendar now = Calendar.getInstance();
-
-        DatePickerDialog dialog = new DatePickerDialog(
-                MainActivity.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    }
-                }, now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH));
-
-        dialog.show();
-    }
+//    @OnClick(R.id.showDatePicker)
+//    void onShowDatePickerClick() {
+//        Calendar now = Calendar.getInstance();
+//
+//        DatePickerDialog dialog = new DatePickerDialog(
+//                SampleActivity.this,
+//                new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                    }
+//                },
+//                now.get(Calendar.YEAR),
+//                now.get(Calendar.MONTH),
+//                now.get(Calendar.DAY_OF_MONTH));
+//
+//        dialog.show();
+//    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -97,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        currentLocale.setText(getString(R.string.current_locale, Locale.getDefault()));
-        date.setText(SimpleDateFormat.getDateInstance(DateFormat.LONG).format(new Date()));
+        currentLocale.setText(Locale.getDefault().toString());
+        date.setText(DateProvider.provideSystemLocaleFormattedDate());
     }
 }
