@@ -17,14 +17,15 @@
 package com.franmontiel.localechanger.sample;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,10 +39,11 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static com.franmontiel.localechanger.sample.SampleApplication.SUPPORTED_LOCALES;
 
-public class SampleActivity extends AppCompatActivity {
+public class SampleFragment extends Fragment {
 
     @BindView(R.id.localeSpinner)
     Spinner localeSpinner;
@@ -49,40 +51,36 @@ public class SampleActivity extends AppCompatActivity {
     TextView currentLocale;
     @BindView(R.id.date)
     TextView date;
-    @BindView(R.id.openNewScreen)
-    Button openNewScreen;
 
+    private Unbinder unbinder;
+
+    @Nullable
     @Override
-    protected void attachBaseContext(Context newBase) {
-        newBase = LocaleChanger.configureBaseContext(newBase);
-        super.attachBaseContext(newBase);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.screen_sample, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sample_menu, menu);
-        return true;
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.sample_menu, menu);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen_sample);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
 
-        ButterKnife.bind(this);
-
-        ArrayAdapter<Locale> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<Locale> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item,
                 SUPPORTED_LOCALES);
         localeSpinner.setAdapter(adapter);
-
-        openNewScreen.setVisibility(View.VISIBLE);
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        ActivityRestarter.restartActivityIfLocaleChanged(this);
 
         currentLocale.setText(Locale.getDefault().toString());
         date.setText(DateProvider.provideSystemLocaleFormattedDate());
@@ -91,7 +89,7 @@ public class SampleActivity extends AppCompatActivity {
     @OnClick(R.id.localeUpdate)
     void onUpdateLocaleClick() {
         LocaleChanger.setLocale((Locale) localeSpinner.getSelectedItem());
-        ActivityRestarter.restartActivity(this, true);
+        ActivityRestarter.restartActivity(getActivity(), false);
     }
 
     @OnClick(R.id.showDatePicker)
@@ -99,7 +97,7 @@ public class SampleActivity extends AppCompatActivity {
         Calendar now = Calendar.getInstance();
 
         DatePickerDialog dialog = new DatePickerDialog(
-                SampleActivity.this,
+                getActivity(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -112,9 +110,9 @@ public class SampleActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    @OnClick(R.id.openNewScreen)
-    void onOpenNewScreenClick() {
-        Intent intent = new Intent(this, SampleFragmentContainerActivity.class);
-        startActivity(intent);
+    @Override
+    public void onDestroyView() {
+        unbinder.unbind();
+        super.onDestroyView();
     }
 }

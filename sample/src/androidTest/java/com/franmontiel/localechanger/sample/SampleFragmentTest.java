@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
 import java.util.Locale;
 
 @RunWith(AndroidJUnit4.class)
-public class SampleActivityTest {
+public class SampleFragmentTest {
 
     private final Locale LOCALE_EN_EN = new Locale("en", "US");
     private final Locale LOCALE_ES_ES = new Locale("es", "ES");
@@ -36,20 +36,11 @@ public class SampleActivityTest {
 
     @Before
     public void setUp() {
-        sampleScreen = new SampleScreen(SampleActivity.class);
+        sampleScreen = new SampleScreen(SampleFragmentContainerActivity.class);
     }
 
     @Test
     public void shouldChangeLocale_WhenUserChangesItManually() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyLocaleChanged(LOCALE_ES_ES);
-    }
-
-    @Test
-    public void shouldMaintainChangedLocale_WhenAppRestart() {
         sampleScreen
                 .launch()
                 .changeLocale(LOCALE_EN_EN)

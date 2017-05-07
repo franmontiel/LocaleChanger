@@ -21,5 +21,7 @@
     <string name="current_locale">Default- Current locale:</string>
     <string name="date">Default- Date:</string>
     <string name="ask_permission">Default- Ask permission</string>
-    <string name="show_date_picker">Default- Show Date Picker</string>
+    <string name="check_dialog_language">Default- Check dialogs language</string>
+    <string name="open_new_screen">Open new screen</string>
+    <string name="settings">Default- Settings</string>
 </resources>

@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c)  2017  Francisco José Montiel Navarro.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,15 +14,10 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">LocaleChanger Exemple</string>
-
-    <string name="update_locale">Mettre à jour Locale</string>
-    <string name="current_locale">Locale actuel:</string>
-    <string name="date">Date:</string>
-    <string name="ask_permission">Demander la permission</string>
-    <string name="check_dialog_language">Vérifier la langue des dialogues</string>
-    <string name="open_new_screen">Ouvrir un nouvel écran</string>
-    <string name="settings">Paramètres</string>
-
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        app:showAsAction="collapseActionView" />
+</menu>
