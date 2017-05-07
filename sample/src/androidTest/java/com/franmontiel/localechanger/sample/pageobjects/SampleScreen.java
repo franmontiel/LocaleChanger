@@ -22,17 +22,17 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.franmontiel.localechanger.sample.R;
 
-import org.junit.Rule;
-
 import java.util.Locale;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.franmontiel.localechanger.sample.OrientationChangeAction.orientationLandscape;
 import static com.franmontiel.localechanger.sample.OrientationChangeAction.orientationPortrait;
@@ -45,11 +45,10 @@ public class SampleScreen {
     private final static int LOCALE_SPINNER_ID = R.id.localeSpinner;
     private final static int UPDATE_BUTTON_ID = R.id.localeUpdate;
 
-    @Rule
     private ActivityTestRule<? extends Activity> activityRule;
 
     public SampleScreen(Class<? extends Activity> activityClass) {
-        this.activityRule = new ActivityTestRule<>(activityClass);
+        this.activityRule = new ActivityTestRule<>(activityClass, false, false);
     }
 
     public SampleScreen launch() {
@@ -60,9 +59,13 @@ public class SampleScreen {
     public SampleScreen changeLocale(Locale locale) {
         onView(withId(LOCALE_SPINNER_ID)).perform(click());
         onData(allOf(is(instanceOf(Locale.class)), is(locale))).perform(click());
-        onView(withId(LOCALE_SPINNER_ID)).check(matches(withSpinnerText(locale.toString())));
 
         onView(withId(UPDATE_BUTTON_ID)).perform(click());
+        return this;
+    }
+
+    public SampleScreen openNewScreen() {
+        onView(withId(R.id.openNewScreen)).perform(click());
         return this;
     }
 
@@ -78,6 +81,15 @@ public class SampleScreen {
 
     public SampleScreen verifyUpdateButtonText(String expectedText) {
         onView(withId(R.id.localeUpdate)).check(matches(withText(expectedText)));
+        return this;
+    }
+
+    public SampleScreen verifyOverflowSettingsItemTitle(String expectedTitle) {
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+
+        // The MenuItem id and the View id is not the same. It is needed to use another matcher.
+        onView(withText(expectedTitle)).check(matches(isDisplayed()));
+
         return this;
     }
 

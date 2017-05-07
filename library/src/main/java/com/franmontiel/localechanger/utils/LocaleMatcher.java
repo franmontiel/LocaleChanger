@@ -21,12 +21,12 @@ import java.util.Locale;
 import static com.franmontiel.localechanger.utils.LocaleMatcher.MatchLevel.NoMatch;
 
 /**
- * Helper class useful to determine the level of matching of two locales.
+ * Helper class useful to determine the level of matching of two Locales.
  */
 public class LocaleMatcher {
 
     /**
-     * Enum representing the level of matching of two locales.
+     * Enum representing the level of matching of two Locales.
      */
     public enum MatchLevel {
         NoMatch,
@@ -39,7 +39,7 @@ public class LocaleMatcher {
     }
 
     /**
-     * Method to determine the level of matching of two locales.
+     * Method to determine the level of matching of two Locales.
      * @param l1
      * @param l2
      * @return

@@ -17,7 +17,7 @@
 package com.franmontiel.localechanger;
 
 /**
- * Enum that represents the preferred locale to be set.
+ * Enum that represents the preferred Locale to be set between a supported and a system Locale.
  */
 public enum LocalePreference {
     PreferSupportedLocale,

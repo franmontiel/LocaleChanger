@@ -29,7 +29,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.franmontiel.localechanger.ActivityRestarter;
+import com.franmontiel.localechanger.ActivityRecreationHelper;
 import com.franmontiel.localechanger.LocaleChanger;
 
 import java.util.Calendar;
@@ -82,16 +82,22 @@ public class SampleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ActivityRestarter.restartActivityIfLocaleChanged(this);
+        ActivityRecreationHelper.onResume(this);
 
         currentLocale.setText(Locale.getDefault().toString());
         date.setText(DateProvider.provideSystemLocaleFormattedDate());
     }
 
+    @Override
+    protected void onDestroy() {
+        ActivityRecreationHelper.onDestroy(this);
+        super.onDestroy();
+    }
+
     @OnClick(R.id.localeUpdate)
     void onUpdateLocaleClick() {
         LocaleChanger.setLocale((Locale) localeSpinner.getSelectedItem());
-        ActivityRestarter.restartActivity(this, true);
+        ActivityRecreationHelper.recreate(this, true);
     }
 
     @OnClick(R.id.showDatePicker)

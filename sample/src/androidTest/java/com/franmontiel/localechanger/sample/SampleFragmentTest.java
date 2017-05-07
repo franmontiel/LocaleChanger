@@ -26,12 +26,17 @@ import org.junit.runner.RunWith;
 
 import java.util.Locale;
 
+/**
+ * Advice: It is recommended to run the tests with a system locale configured not listed in the supported ones (to avoid false positives).
+ */
 @RunWith(AndroidJUnit4.class)
 public class SampleFragmentTest {
 
     private final Locale LOCALE_EN_EN = new Locale("en", "US");
     private final Locale LOCALE_ES_ES = new Locale("es", "ES");
     private final String BUTTON_TEXT_ES = "Actualizar Locale";
+    private static final String SETTINGS_ITEM_TITLE_ES = "Preferencias";
+
     private SampleScreen sampleScreen;
 
     @Before
@@ -54,6 +59,7 @@ public class SampleFragmentTest {
                 .launch()
                 .changeLocale(LOCALE_ES_ES)
                 .changeOrientationToLandscape()
+                .changeOrientationToPortrait()
                 .verifyLocaleChanged(LOCALE_ES_ES);
     }
 
@@ -72,6 +78,7 @@ public class SampleFragmentTest {
                 .launch()
                 .changeLocale(LOCALE_ES_ES)
                 .changeOrientationToLandscape()
+                .changeOrientationToPortrait()
                 .verifyUpdateButtonText(BUTTON_TEXT_ES);
     }
 
@@ -90,7 +97,27 @@ public class SampleFragmentTest {
                 .launch()
                 .changeLocale(LOCALE_ES_ES)
                 .changeOrientationToLandscape()
+                .changeOrientationToPortrait()
                 .verifyDate(DateProvider.provideLocaleFormattedDate(LOCALE_ES_ES));
+    }
+
+    @Test
+    public void shouldUpdateItemTitle_WhenLocaleChanged() {
+        sampleScreen
+                .launch()
+                .changeLocale(LOCALE_EN_EN)
+                .changeLocale(LOCALE_ES_ES)
+                .verifyOverflowSettingsItemTitle(SETTINGS_ITEM_TITLE_ES);
+    }
+
+    @Test
+    public void shouldMaintainItemTitle_WhenConfigurationChanged() {
+        sampleScreen
+                .launch()
+                .changeLocale(LOCALE_ES_ES)
+                .changeOrientationToLandscape()
+                .changeOrientationToPortrait()
+                .verifyOverflowSettingsItemTitle(SETTINGS_ITEM_TITLE_ES);
     }
 
     // TODO Test Actionbar title

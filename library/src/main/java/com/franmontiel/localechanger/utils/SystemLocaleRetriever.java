@@ -25,6 +25,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * A class useful to retrieve the system configured Locales.
+ */
 public class SystemLocaleRetriever {
 
     private SystemLocaleRetriever() {

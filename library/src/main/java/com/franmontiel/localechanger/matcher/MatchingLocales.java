@@ -20,6 +20,9 @@ import com.franmontiel.localechanger.LocalePreference;
 
 import java.util.Locale;
 
+/**
+ * This class represents a pair of matching locales between a supported and a system Locale.
+ */
 public final class MatchingLocales {
     private Locale supportedLocale;
     private Locale systemLocale;

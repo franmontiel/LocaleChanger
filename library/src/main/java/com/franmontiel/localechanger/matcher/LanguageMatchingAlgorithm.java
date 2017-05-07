@@ -21,8 +21,17 @@ import com.franmontiel.localechanger.utils.LocaleMatcher;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * An algorithm that match the Locales the same language in common.
+ */
 public final class LanguageMatchingAlgorithm implements MatchingAlgorithm {
 
+    /**
+     *
+     * @param supportedLocales a list of your app supported locales
+     * @param systemLocales    a list of the configured  locales in system preferences
+     * @return
+     */
     @Override
     public MatchingLocales findDefaultMatch(List<Locale> supportedLocales, List<Locale> systemLocales) {
         MatchingLocales matchingPair = null;

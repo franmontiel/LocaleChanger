@@ -23,6 +23,9 @@ import android.support.annotation.Nullable;
 
 import java.util.Locale;
 
+/**
+ * This class provides persistence
+ */
 class LocalePersistor {
 
     private static final String SP_LOCALE = LocalePersistor.class.getPackage().getName();

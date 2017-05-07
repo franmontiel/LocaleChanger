@@ -22,6 +22,9 @@ import com.franmontiel.localechanger.matcher.MatchingLocales;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Class that uses a {@link MatchingAlgorithm} and a {@link LocalePreference} to resolve a Locale to be set.
+ */
 class LocaleResolver {
 
     private List<Locale> supportedLocales;

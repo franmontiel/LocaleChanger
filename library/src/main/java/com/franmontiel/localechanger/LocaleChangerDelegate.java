@@ -20,6 +20,9 @@ import android.content.Context;
 
 import java.util.Locale;
 
+/**
+ * A delegate instance class that is used by the public LocaleChanger class.
+ */
 class LocaleChangerDelegate {
 
     private LocalePersistor persistor;

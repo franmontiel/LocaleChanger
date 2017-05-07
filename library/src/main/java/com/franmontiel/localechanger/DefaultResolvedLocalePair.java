@@ -18,6 +18,9 @@ package com.franmontiel.localechanger;
 
 import java.util.Locale;
 
+/**
+ * A class representing a pair of Locales resolved by the {@link LocaleResolver#resolveDefault()}
+ */
 class DefaultResolvedLocalePair {
     private Locale supportedLocale;
     private Locale resolvedLocale;

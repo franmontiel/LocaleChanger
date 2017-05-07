@@ -17,7 +17,6 @@
 package com.franmontiel.localechanger;
 
 import android.content.Context;
-import android.content.res.Configuration;
 
 import com.franmontiel.localechanger.matcher.LanguageMatchingAlgorithm;
 import com.franmontiel.localechanger.matcher.MatchingAlgorithm;
@@ -35,14 +34,14 @@ public class LocaleChanger {
     }
 
     /**
-     * Initialize the LocaleChanger, this methods needs to be called before calling any other method of this class and it can only be called once, if not a {@inkn}.
+     * Initialize the LocaleChanger, this method needs to be called before calling any other method and it must be called only once.
      * <p>
-     * If this method was never invoked before it will load the Locale from the supported list which language match with a configured system language,
-     * if no match is found the first Locale in the list will be loaded.<p>
+     * If this method was never invoked before it sets a Locale from the supported list if a language match is found with the system Locales,
+     * if no match is found the first Locale in the list will be set.<p>
      * If this method was invoked before it will load a Locale previously set.
      *
      * @param context
-     * @param supportedLocales a list of Locales that your app support
+     * @param supportedLocales a list of your app supported Locales
      * @throws IllegalStateException if the LocaleChanger is already initialized
      */
     public static void initialize(Context context, List<Locale> supportedLocales) {
@@ -53,14 +52,14 @@ public class LocaleChanger {
     }
 
     /**
-     * Initialize the LocaleChanger, this methods needs to be called before calling any other method this class.<p>
-     * If this method was never invoked before it will load a Locale resolved using the provided {@link MatchingAlgorithm} and {@link LocalePreference}.<p>
+     * Initialize the LocaleChanger, this method needs to be called before calling any other method and it must be called only once.<p>
+     * If this method was never invoked before it sets a Locale resolved using the provided {@link MatchingAlgorithm} and {@link LocalePreference}.<p>
      * If this method was invoked before it will load a Locale previously set.
      *
      * @param context
-     * @param supportedLocales  a list of your app supported locales
-     * @param matchingAlgorithm used to find a match between supported and system locales
-     * @param preference        used to indicate what Locale it is preferred to load in case of a match
+     * @param supportedLocales  a list of your app supported Locales
+     * @param matchingAlgorithm used to find a match between supported and system Locales
+     * @param preference        used to indicate what Locale is preferred to load in case of a match
      * @throws IllegalStateException if the LocaleChanger is already initialized
      */
     public static void initialize(Context context,
@@ -94,7 +93,7 @@ public class LocaleChanger {
     /**
      * Sets a new default app Locale that will be resolved from the one provided.
      *
-     * @param supportedLocale a supported Locale that will be used to resolve the locale to set. The default behavior is to directly load the supported Locale provided
+     * @param supportedLocale a supported Locale that will be used to resolve the Locale to set.
      */
     public static void setLocale(Locale supportedLocale) {
         delegate.setLocale(supportedLocale);
@@ -110,8 +109,8 @@ public class LocaleChanger {
     }
 
     /**
-     * This method should be used inside {@link android.app.Activity#attachBaseContext(Context)}
-     * to create a context configured with the correct Locale.
+     * This method should be used inside the Activity attachBaseContext.
+     * The returned Context should be used as argument for the super method call.
      *
      * @param context
      * @return the resulting context that should be provided to the super method call.
@@ -121,7 +120,7 @@ public class LocaleChanger {
     }
 
     /**
-     * This method should be called from {@link android.app.Application#onConfigurationChanged(Configuration)}
+     * This method should be called from Application#onConfigurationChanged()
      */
     public static void onConfigurationChanged() {
         delegate.onConfigurationChanged();

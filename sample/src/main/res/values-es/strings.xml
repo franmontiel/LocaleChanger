@@ -23,6 +23,6 @@
     <string name="ask_permission">Pedir permiso</string>
     <string name="check_dialog_language">Comprobar idioma de los dialogos</string>
     <string name="open_new_screen">Abrir nueva pantalla</string>
-    <string name="settings">Prefrencias</string>
+    <string name="settings">Preferencias</string>
 
 </resources>

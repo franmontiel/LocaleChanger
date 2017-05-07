@@ -30,7 +30,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.franmontiel.localechanger.ActivityRestarter;
+import com.franmontiel.localechanger.ActivityRecreationHelper;
 import com.franmontiel.localechanger.LocaleChanger;
 
 import java.util.Calendar;
@@ -89,7 +89,7 @@ public class SampleFragment extends Fragment {
     @OnClick(R.id.localeUpdate)
     void onUpdateLocaleClick() {
         LocaleChanger.setLocale((Locale) localeSpinner.getSelectedItem());
-        ActivityRestarter.restartActivity(getActivity(), false);
+        ActivityRecreationHelper.recreate(getActivity(), false);
     }
 
     @OnClick(R.id.showDatePicker)

@@ -21,6 +21,9 @@ import com.franmontiel.localechanger.utils.LocaleMatcher;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * An algorithm that matches the Locales with most attributes in common.
+ */
 public final class ClosestMatchingAlgorithm implements MatchingAlgorithm {
 
     @Override
