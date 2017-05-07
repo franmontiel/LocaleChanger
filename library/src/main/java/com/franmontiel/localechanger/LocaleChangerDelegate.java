@@ -85,6 +85,6 @@ class LocaleChangerDelegate {
     }
 
     void onConfigurationChanged() {
-        appLocaleChanger.onConfigurationChange(currentLocale);
+        appLocaleChanger.change(currentLocale);
     }
 }

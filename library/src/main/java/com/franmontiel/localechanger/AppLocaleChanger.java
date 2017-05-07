@@ -34,19 +34,26 @@ class AppLocaleChanger {
     void change(Locale newLocale) {
         Locale.setDefault(newLocale);
 
-        Configuration conf = context.getResources().getConfiguration();
-        updateConfiguration(conf, newLocale);
+        if (SupportedSDK.hasNougat())
+            updateConfiguration(newLocale);
+        else
+            updateConfigurationLegacy(newLocale);
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void updateConfiguration(Locale newLocale) {
+        context.getResources().getConfiguration().setLocale(newLocale);
     }
 
     @SuppressWarnings("deprecation")
-    private void updateConfiguration(Configuration conf, Locale newLocale) {
+    private void updateConfigurationLegacy(Locale newLocale) {
+        Configuration conf = context.getResources().getConfiguration();
         conf.locale = newLocale;
         context.getResources().updateConfiguration(conf, context.getResources().getDisplayMetrics());
     }
 
     Context configureBaseContext(Context context, Locale locale) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SupportedSDK.hasNougat()) {
             return getLocaleConfiguredContext(context, locale);
         } else {
             return context;
@@ -60,8 +67,10 @@ class AppLocaleChanger {
         return context.createConfigurationContext(conf);
     }
 
-    void onConfigurationChange(Locale locale) {
-        change(locale);
-    }
+    private static class SupportedSDK {
 
+        static boolean hasNougat() {
+            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+        }
+    }
 }
