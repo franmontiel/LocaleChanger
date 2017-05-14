@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.franmontiel.localechanger;
+package com.franmontiel.localechanger.utils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,6 +32,9 @@ import java.util.Map;
 public class ActivityRecreationHelper {
 
     private static final Map<String, Locale> localesOnActivities = new HashMap<>();
+
+    private ActivityRecreationHelper(){
+    }
 
     /**
      * Call this method on the Activity onResume. It will recreate the Activity if a Locale change is detected.
