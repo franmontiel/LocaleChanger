@@ -26,7 +26,7 @@ Initialize the library from your `Application` class with a list of your app sup
 ```java
 LocaleChanger.initialize(getApplicationContext(), SUPPORTED_LOCALES);
 ```
-This will automatically set a Locale taking into account the system configuration. The first element of the supported Locale list will be used as default if no match with the system configured Locales is found.
+The first time that is invoked it will automatically set a Locale taking into account the system configuration. The first element of the supported Locale list will be used as default if no match with the system configured Locales is found.
 
 You also need to call `onConfigurationChange` from the same named method in your `Application` class:
 ```java
