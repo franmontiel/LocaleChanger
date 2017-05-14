@@ -29,8 +29,8 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.franmontiel.localechanger.ActivityRecreationHelper;
 import com.franmontiel.localechanger.LocaleChanger;
+import com.franmontiel.localechanger.utils.ActivityRecreationHelper;
 
 import java.util.Calendar;
 import java.util.Locale;
