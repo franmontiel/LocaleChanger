@@ -61,7 +61,7 @@ The default behavior of the library can be changed providing a `MatchingAlgorith
   * `LanguageMatchingAlgorithm` will match the first two Locales with the same language. This is the default algorithm used if no one is defined.
   * `ClosestMatchingAlgorithm` will match the two Locales with most attributes in common (language, country and variation).
 
-* The `LocalePreference` is used to select witch one of the two matching Locales will be set. The default behaviour is to prefer a supported locales uf no preference is provided.
+* The `LocalePreference` is used to select witch one of the two matching Locales will be set. The default behavior is to prefer a supported locales uf no preference is provided.
 
 Known issues
 -------
