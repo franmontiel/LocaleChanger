@@ -51,7 +51,7 @@ LocaleChanger.setLocale(newLocale);
 ### Activity recreation 
 You need to recreate the `Activities` once the Locale is changed to reload your resources. You can do it by simply calling the `replace` method of the Activity.
 
-Additionally there is the `ActivityRecreationHelper` class that is intended for assisting you with the recreation of the Activity.
+Additionally there is a `ActivityRecreationHelper` class that is intended for assisting you with the recreation of the Activity.
  
 It can be used to detect when the Locale has changed and reload automatically the Activity when resumed, for that you must call to the `onResume` and `onDestroy` methods of the helper class from the Activity methods.
 
@@ -62,6 +62,10 @@ The default behavior of the library can be changed providing a `MatchingAlgorith
   * `ClosestMatchingAlgorithm` will match the two Locales with most attributes in common (language, country and variation).
 
 * The `LocalePreference` is used to select witch one of the two matching Locales will be set. The default behaviour is to prefer a supported locales uf no preference is provided.
+
+Known issues
+-------
+* The ActionBar title is not affected by the Locale change if it is defined in the Manifest label attribute. A valid workaround is to set the title programmatically. More info on [Issue #1](https://github.com/franmontiel/LocaleChanger/issues/1).
 
 License
 -------
