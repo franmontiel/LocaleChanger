@@ -1,0 +1,80 @@
+LocaleChanger
+=================
+An Android library to programmatically set the Locale of an app and persist the configuration. 
+
+Download
+--------
+Step 1. Add the JitPack repository in your root build.gradle at the end of repositories:
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+Step 2. Add the dependency
+```groovy
+dependencies {
+        compile 'com.github.franmontiel:LocaleChanger:0.9'
+}
+```
+Usage
+-----
+### Basic usage
+Initialize the library from your `Application` class with a list of your app supported Locales:
+```java
+LocaleChanger.initialize(getApplicationContext(), SUPPORTED_LOCALES);
+```
+This will automatically set a Locale taking into account the system configuration. The first element of the supported Locale list will be used as default if no match with the system configured Locales is found.
+
+You also need to call `onConfigurationChange` from the same named method in your `Application` class:
+```java
+@Override
+public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    LocaleChanger.onConfigurationChanged();
+}
+```
+And create a new Locale configured `Context` for all your `Activities` calling `configureBaseContext`:
+```java
+@Override
+protected void attachBaseContext(Context newBase) {
+    newBase = LocaleChanger.configureBaseContext(newBase);
+    super.attachBaseContext(newBase);
+}
+```
+To change the Locale just make the following call:
+```java
+LocaleChanger.setLocale(newLocale);
+``` 
+### Activity recreation 
+You need to recreate the `Activities` once the Locale is changed to reload your resources. You can do it by simply calling the `replace` method of the Activity.
+
+Additionally there is the `ActivityRecreationHelper` class that is intended for assisting you with the recreation of the Activity.
+ 
+It can be used to detect when the Locale has changed and reload automatically the Activity when resumed, for that you must call to the `onResume` and `onDestroy` methods of the helper class from the Activity methods.
+
+### Advanced usage
+The default behavior of the library can be changed providing a `MatchingAlgorithm` and a `LocalePreference`
+* The `MatchingAlgorithm` is used when the library is initialized and when the Locale is changed to find a match between your supported Locales and the system Locales. One of those matching Locales will be set by the library. There are two classes that implements this interface:
+  * `LanguageMatchingAlgorithm` will match the first two Locales with the same Language. This is the default algorithm used if no one is defined.
+  * `ClosestMatchingAlgorithm` will match the two Locales with most attributes in common (language, country and variation).
+
+* The `LocalePreference` is used to select witch one of the two matching Locales will be set. The default behaviour is to prefer a supported locales uf no preference is provided.
+
+License
+-------
+    Copyright (C) 2017 Francisco José Montiel Navarro
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
