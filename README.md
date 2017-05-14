@@ -58,7 +58,7 @@ It can be used to detect when the Locale has changed and reload automatically th
 ### Advanced usage
 The default behavior of the library can be changed providing a `MatchingAlgorithm` and a `LocalePreference`
 * The `MatchingAlgorithm` is used when the library is initialized and when the Locale is changed to find a match between your supported Locales and the system Locales. One of those matching Locales will be set by the library. There are two classes that implements this interface:
-  * `LanguageMatchingAlgorithm` will match the first two Locales with the same Language. This is the default algorithm used if no one is defined.
+  * `LanguageMatchingAlgorithm` will match the first two Locales with the same language. This is the default algorithm used if no one is defined.
   * `ClosestMatchingAlgorithm` will match the two Locales with most attributes in common (language, country and variation).
 
 * The `LocalePreference` is used to select witch one of the two matching Locales will be set. The default behaviour is to prefer a supported locales uf no preference is provided.
