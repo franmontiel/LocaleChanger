@@ -28,7 +28,7 @@ import java.util.Locale;
  */
 class LocalePersistor {
 
-    private static final String SP_LOCALE = LocalePersistor.class.getPackage().getName();
+    private static final String SP_LOCALE = "LocaleChanger.LocalePersistence";
     private static final String KEY_LANGUAGE = "language";
     private static final String KEY_COUNTRY = "country";
     private static final String KEY_VARIANT = "variant";
