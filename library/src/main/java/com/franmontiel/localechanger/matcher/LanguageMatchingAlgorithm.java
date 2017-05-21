@@ -26,12 +26,6 @@ import java.util.Locale;
  */
 public final class LanguageMatchingAlgorithm implements MatchingAlgorithm {
 
-    /**
-     *
-     * @param supportedLocales a list of your app supported locales
-     * @param systemLocales    a list of the configured  locales in system preferences
-     * @return
-     */
     @Override
     public MatchingLocales findDefaultMatch(List<Locale> supportedLocales, List<Locale> systemLocales) {
         MatchingLocales matchingPair = null;
