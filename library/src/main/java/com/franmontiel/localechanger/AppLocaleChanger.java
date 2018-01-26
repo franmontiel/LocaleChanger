@@ -28,7 +28,7 @@ class AppLocaleChanger {
     private Context context;
 
     AppLocaleChanger(Context context) {
-        this.context = context.getApplicationContext();
+        this.context = context;
     }
 
     void change(Locale newLocale) {
@@ -53,7 +53,7 @@ class AppLocaleChanger {
     }
 
     Context configureBaseContext(Context context, Locale locale) {
-        if (SupportedSDK.hasNougat()) {
+        if (SupportedSDK.hasJellyBeanMr1()) {
             return getLocaleConfiguredContext(context, locale);
         } else {
             return context;
@@ -71,6 +71,11 @@ class AppLocaleChanger {
 
         static boolean hasNougat() {
             return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+        }
+
+        static boolean hasJellyBeanMr1(){
+          return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
+
         }
     }
 }

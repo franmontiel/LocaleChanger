@@ -31,7 +31,8 @@ public class SampleApplication extends Application {
             Arrays.asList(
                     new Locale("en", "US"),
                     new Locale("es", "ES"),
-                    new Locale("fr", "FR")
+                    new Locale("fr", "FR"),
+                    new Locale("ar", "JO")
             );
 
     @Override

@@ -18,6 +18,8 @@ package com.franmontiel.localechanger.sample.pageobjects;
 
 import android.app.Activity;
 import android.os.SystemClock;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import com.franmontiel.localechanger.sample.R;
@@ -29,14 +31,19 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
+import static android.support.test.espresso.assertion.PositionAssertions.isCompletelyLeftOf;
+import static android.support.test.espresso.assertion.PositionAssertions.isCompletelyRightOf;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.franmontiel.localechanger.sample.OrientationChangeAction.orientationLandscape;
 import static com.franmontiel.localechanger.sample.OrientationChangeAction.orientationPortrait;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
@@ -61,11 +68,13 @@ public class SampleScreen {
         onData(allOf(is(instanceOf(Locale.class)), is(locale))).perform(click());
 
         onView(withId(UPDATE_BUTTON_ID)).perform(click());
+        SystemClock.sleep(500);
+
         return this;
     }
 
     public SampleScreen openNewScreen() {
-        onView(withId(R.id.openNewScreen)).perform(click());
+        onView(allOf(withId(R.id.openNewScreen), withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))).perform(click());
         return this;
     }
 
@@ -93,6 +102,18 @@ public class SampleScreen {
         return this;
     }
 
+    public SampleScreen verifyLayoutDirectionRTL() {
+        onView(withId(R.id.currentLocale)).check(isCompletelyLeftOf(withId(R.id.currentLocaleTitle)));
+
+        return this;
+    }
+
+    public SampleScreen verifyLayoutDirectionLTR() {
+        onView(withId(R.id.currentLocale)).check(isCompletelyRightOf(withId(R.id.currentLocaleTitle)));
+
+        return this;
+    }
+
     public SampleScreen changeOrientationToLandscape() {
         onView(isRoot()).perform(orientationLandscape());
         SystemClock.sleep(500);
@@ -102,6 +123,11 @@ public class SampleScreen {
     public SampleScreen changeOrientationToPortrait() {
         onView(isRoot()).perform(orientationPortrait());
         SystemClock.sleep(500);
+        return this;
+    }
+
+    public SampleScreen pressBack() {
+        Espresso.pressBack();
         return this;
     }
 }

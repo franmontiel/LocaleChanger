@@ -18,8 +18,10 @@ package com.franmontiel.localechanger.sample;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.franmontiel.localechanger.LocaleChanger;
 import com.franmontiel.localechanger.sample.pageobjects.SampleScreen;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,94 +34,62 @@ import java.util.Locale;
 @RunWith(AndroidJUnit4.class)
 public class SampleFragmentTest {
 
-    private final Locale LOCALE_EN_EN = new Locale("en", "US");
-    private final Locale LOCALE_ES_ES = new Locale("es", "ES");
-    private final String BUTTON_TEXT_ES = "Actualizar Locale";
-    private static final String SETTINGS_ITEM_TITLE_ES = "Preferencias";
-
-    private SampleScreen sampleScreen;
+    private SampleScreenTestDelegate sampleScreenTestDelegate = new SampleScreenTestDelegate();
 
     @Before
     public void setUp() {
-        sampleScreen = new SampleScreen(SampleFragmentContainerActivity.class);
+        sampleScreenTestDelegate.setUp(new SampleScreen(SampleFragmentContainerActivity.class));
     }
 
     @Test
     public void shouldChangeLocale_WhenUserChangesItManually() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyLocaleChanged(LOCALE_ES_ES);
+        sampleScreenTestDelegate.shouldChangeLocale_WhenUserChangesItManually();
     }
 
     @Test
     public void shouldMaintainLocale_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyLocaleChanged(LOCALE_ES_ES);
+        sampleScreenTestDelegate.shouldMaintainLocale_WhenConfigurationChanged();
     }
 
     @Test
     public void shouldUpdateButtonText_WhenLocaleChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyUpdateButtonText(BUTTON_TEXT_ES);
+        sampleScreenTestDelegate.shouldUpdateButtonText_WhenLocaleChanged();
     }
 
     @Test
     public void shouldMaintainButtonText_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyUpdateButtonText(BUTTON_TEXT_ES);
+        sampleScreenTestDelegate.shouldMaintainButtonText_WhenConfigurationChanged();
     }
 
     @Test
     public void shouldUpdateDate_WhenLocaleChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyDate(DateProvider.provideLocaleFormattedDate(LOCALE_ES_ES));
+        sampleScreenTestDelegate.shouldUpdateDate_WhenLocaleChanged();
     }
 
     @Test
     public void shouldMaintainDate_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyDate(DateProvider.provideLocaleFormattedDate(LOCALE_ES_ES));
+        sampleScreenTestDelegate.shouldMaintainDate_WhenConfigurationChanged();
     }
 
     @Test
     public void shouldUpdateItemTitle_WhenLocaleChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyOverflowSettingsItemTitle(SETTINGS_ITEM_TITLE_ES);
+        sampleScreenTestDelegate.shouldUpdateItemTitle_WhenLocaleChanged();
     }
 
     @Test
     public void shouldMaintainItemTitle_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyOverflowSettingsItemTitle(SETTINGS_ITEM_TITLE_ES);
+        sampleScreenTestDelegate.shouldMaintainItemTitle_WhenConfigurationChanged();
+    }
+
+    @Test
+    public void shouldChangeLayoutDirection_WhenLocaleChanged() {
+        sampleScreenTestDelegate.shouldChangeLayoutDirection_WhenLocaleChanged();
+    }
+
+    @Test
+    public void shouldMaintainLayoutDirection_WhenConfigurationChanged() {
+        sampleScreenTestDelegate.shouldMaintainLayoutDirection_WhenConfigurationChanged();
     }
 
     // TODO Test Actionbar title
-
 }

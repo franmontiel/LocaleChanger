@@ -33,108 +33,68 @@ import java.util.Locale;
 @RunWith(AndroidJUnit4.class)
 public class SampleActivityTest {
 
-    private static final Locale LOCALE_EN_EN = new Locale("en", "US");
-    private static final Locale LOCALE_ES_ES = new Locale("es", "ES");
-
-    private static final String BUTTON_TEXT_ES = "Actualizar Locale";
-    private static final String SETTINGS_ITEM_TITLE_ES = "Preferencias";
-
-    private SampleScreen sampleScreen;
+    private SampleScreenTestDelegate sampleScreenTestDelegate = new SampleScreenTestDelegate();
 
     @Before
     public void setUp() {
-        sampleScreen = new SampleScreen(SampleActivity.class);
+        sampleScreenTestDelegate.setUp(new SampleScreen(SampleActivity.class));
     }
 
     @Test
     public void shouldChangeLocale_WhenUserChangesItManually() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyLocaleChanged(LOCALE_ES_ES);
+        sampleScreenTestDelegate.shouldChangeLocale_WhenUserChangesItManually();
     }
 
     @Test
     public void shouldMaintainLocale_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyLocaleChanged(LOCALE_ES_ES);
+        sampleScreenTestDelegate.shouldMaintainLocale_WhenConfigurationChanged();
     }
 
     @Test
     public void shouldUpdateButtonText_WhenLocaleChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyUpdateButtonText(BUTTON_TEXT_ES);
+        sampleScreenTestDelegate.shouldUpdateButtonText_WhenLocaleChanged();
     }
 
     @Test
     public void shouldMaintainButtonText_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyUpdateButtonText(BUTTON_TEXT_ES);
+        sampleScreenTestDelegate.shouldMaintainButtonText_WhenConfigurationChanged();
     }
 
     @Test
     public void shouldUpdateDate_WhenLocaleChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyDate(DateProvider.provideLocaleFormattedDate(LOCALE_ES_ES));
+        sampleScreenTestDelegate.shouldUpdateDate_WhenLocaleChanged();
     }
 
     @Test
     public void shouldMaintainDate_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyDate(DateProvider.provideLocaleFormattedDate(LOCALE_ES_ES));
+        sampleScreenTestDelegate.shouldMaintainDate_WhenConfigurationChanged();
     }
 
     @Test
     public void shouldUpdateItemTitle_WhenLocaleChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_EN_EN)
-                .changeLocale(LOCALE_ES_ES)
-                .verifyOverflowSettingsItemTitle(SETTINGS_ITEM_TITLE_ES);
+        sampleScreenTestDelegate.shouldUpdateItemTitle_WhenLocaleChanged();
     }
 
     @Test
     public void shouldMaintainItemTitle_WhenConfigurationChanged() {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .changeOrientationToLandscape()
-                .changeOrientationToPortrait()
-                .verifyOverflowSettingsItemTitle(SETTINGS_ITEM_TITLE_ES);
+        sampleScreenTestDelegate.shouldMaintainItemTitle_WhenConfigurationChanged();
     }
 
     // TODO Check why this test only works on Nougat.
     // For some reason calling Locale.setDefault causes a NoActivityResumedException(Pressed back and killed the app) when invoking pressBack()
     @Test
     public void shouldUpdateLocale_WhenResumed_IfLocaleHasBeenChanged() throws Exception {
-        sampleScreen
-                .launch()
-                .changeLocale(LOCALE_ES_ES)
-                .openNewScreen()
-                .changeLocale(LOCALE_EN_EN);
+        sampleScreenTestDelegate.shouldUpdateLocale_WhenResumed_IfLocaleHasBeenChanged();
+    }
 
-        Espresso.pressBack();
+    @Test
+    public void shouldChangeLayoutDirection_WhenLocaleChanged() {
+        sampleScreenTestDelegate.shouldChangeLayoutDirection_WhenLocaleChanged();
+    }
 
-        sampleScreen.verifyLocaleChanged(LOCALE_EN_EN);
+    @Test
+    public void shouldMaintainLayoutDirection_WhenConfigurationChanged() {
+        sampleScreenTestDelegate.shouldMaintainLayoutDirection_WhenConfigurationChanged();
     }
 
     // TODO Test Actionbar title

@@ -42,7 +42,7 @@
             android:layout_marginBottom="4dp"
             android:orientation="horizontal">
 
-            <TextView
+            <TextView android:id="@+id/currentLocaleTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
