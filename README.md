@@ -16,7 +16,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-        compile 'com.github.franmontiel:LocaleChanger:0.9.1'
+        compile 'com.github.franmontiel:LocaleChanger:0.9.2'
 }
 ```
 Usage
