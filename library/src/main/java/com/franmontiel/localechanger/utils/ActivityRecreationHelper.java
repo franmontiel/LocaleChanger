@@ -43,10 +43,11 @@ public class ActivityRecreationHelper {
     public static void onResume(Activity activity) {
         Locale previousLocale = localesOnActivities.get(activity.toString());
         boolean shouldRestartActivity = previousLocale != null && !previousLocale.equals(Locale.getDefault());
+
+        localesOnActivities.put(activity.toString(), Locale.getDefault());
+
         if (shouldRestartActivity) {
             recreate(activity, false);
-        } else {
-            localesOnActivities.put(activity.toString(), Locale.getDefault());
         }
     }
 
@@ -64,13 +65,14 @@ public class ActivityRecreationHelper {
      * @param animate a flag indicating if the recreation will be animated or not
      */
     public static void recreate(Activity activity, boolean animate) {
-        if (animate) {
-            Intent restartIntent = new Intent(activity, activity.getClass());
+        Intent restartIntent = new Intent(activity, activity.getClass());
 
-            Bundle extras = activity.getIntent().getExtras();
-            if (extras != null) {
-                restartIntent.putExtras(extras);
-            }
+        Bundle extras = activity.getIntent().getExtras();
+        if (extras != null) {
+            restartIntent.putExtras(extras);
+        }
+
+        if (animate) {
             ActivityCompat.startActivity(
                     activity,
                     restartIntent,
@@ -78,9 +80,12 @@ public class ActivityRecreationHelper {
                             .makeCustomAnimation(activity, android.R.anim.fade_in, android.R.anim.fade_out)
                             .toBundle()
             );
-            activity.finish();
         } else {
-            activity.recreate();
+            activity.startActivity(restartIntent);
+            activity.overridePendingTransition(0, 0);
         }
+
+        activity.finish();
+
     }
 }
