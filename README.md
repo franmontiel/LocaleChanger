@@ -55,6 +55,11 @@ Additionally there is a `ActivityRecreationHelper` class that is intended for as
  
 It can be used to detect when the Locale has changed and reload automatically the Activity when resumed, for that you must call to the `onResume` and `onDestroy` methods of the helper class from the Activity methods.
 
+In concrete terms:
+* On the Activity in which you change the language you need to recreate it calling `ActivityRecreationHelper.recreate`.
+* For having the rest of the Activities on the Back Stack recreated automatically when resumed, call `ActivityRecreationHelper.onResume` and `ActivityRecreationHelper.onDestroy` on all your Activities `onResume` and `onDestroy` methods respectively.
+
+
 ### Advanced usage
 The default behavior of the library can be changed providing a `MatchingAlgorithm` and a `LocalePreference`
 * The `MatchingAlgorithm` is used when the library is initialized and when the Locale is changed to find a match between your supported Locales and the system Locales. One of those matching Locales will be set by the library. There are two classes that implements this interface:
