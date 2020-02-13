@@ -20,7 +20,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,6 +27,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.franmontiel.localechanger.LocaleChanger;
 import com.franmontiel.localechanger.utils.ActivityRecreationHelper;
@@ -51,6 +52,8 @@ public class SampleActivity extends AppCompatActivity {
     TextView date;
     @BindView(R.id.openNewScreen)
     Button openNewScreen;
+    @BindView(R.id.reInitialize)
+    Button reInitialize;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -77,6 +80,15 @@ public class SampleActivity extends AppCompatActivity {
         localeSpinner.setAdapter(adapter);
 
         openNewScreen.setVisibility(View.VISIBLE);
+
+        reInitialize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocaleChanger.initialize(getApplicationContext(), SUPPORTED_LOCALES.subList(0,SUPPORTED_LOCALES.size()-1));
+                LocaleChanger.resetLocale();
+                ActivityRecreationHelper.recreate(SampleActivity.this, true);
+            }
+        });
     }
 
     @Override

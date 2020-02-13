@@ -54,7 +54,7 @@ class LocaleResolver {
 
     Locale resolve(Locale supportedLocale) throws UnsupportedLocaleException {
         if (!supportedLocales.contains(supportedLocale))
-            throw new UnsupportedLocaleException();
+            throw new UnsupportedLocaleException("The Locale you are trying to load is not in the supported list provided on library initialization");
 
         MatchingLocales matchingPair = null;
         if (preference.equals(LocalePreference.PreferSystemLocale)) {

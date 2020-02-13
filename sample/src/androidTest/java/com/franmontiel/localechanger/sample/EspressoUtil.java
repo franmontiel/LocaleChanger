@@ -17,11 +17,11 @@
 package com.franmontiel.localechanger.sample;
 
 import android.app.Activity;
-import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
 import java.util.Collection;
 
-import static android.support.test.runner.lifecycle.Stage.RESUMED;
+import static androidx.test.runner.lifecycle.Stage.RESUMED;
 
 public class EspressoUtil {
     public static Activity getCurrentActivity() {

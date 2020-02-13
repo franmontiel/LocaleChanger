@@ -16,17 +16,13 @@
 
 package com.franmontiel.localechanger.sample;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.franmontiel.localechanger.LocaleChanger;
 import com.franmontiel.localechanger.sample.pageobjects.SampleScreen;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.Locale;
 
 /**
  * Advice: It is recommended to run the tests with a system locale configured not listed in the supported ones (to avoid false positives).

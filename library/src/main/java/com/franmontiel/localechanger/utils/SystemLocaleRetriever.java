@@ -18,7 +18,7 @@ package com.franmontiel.localechanger.utils;
 
 import android.os.Build;
 import android.os.LocaleList;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.Collections;
