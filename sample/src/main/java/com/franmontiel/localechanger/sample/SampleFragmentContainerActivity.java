@@ -19,6 +19,10 @@ package com.franmontiel.localechanger.sample;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.LocaleChangerAppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +30,15 @@ import com.franmontiel.localechanger.LocaleChanger;
 
 public class SampleFragmentContainerActivity extends AppCompatActivity {
 
+    private LocaleChangerAppCompatDelegate localeChangerAppCompatDelegate;
+
+    @NonNull
     @Override
-    protected void attachBaseContext(Context newBase) {
-        newBase = LocaleChanger.configureBaseContext(newBase);
-        super.attachBaseContext(newBase);
+    public AppCompatDelegate getDelegate() {
+        if (localeChangerAppCompatDelegate == null) {
+            localeChangerAppCompatDelegate = new LocaleChangerAppCompatDelegate(super.getDelegate());
+        }
+        return localeChangerAppCompatDelegate;
     }
 
     @Override

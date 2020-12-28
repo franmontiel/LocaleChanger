@@ -17,7 +17,6 @@
 package com.franmontiel.localechanger.sample;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,7 +27,10 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.LocaleChangerAppCompatDelegate;
 
 import com.franmontiel.localechanger.LocaleChanger;
 import com.franmontiel.localechanger.utils.ActivityRecreationHelper;
@@ -55,10 +57,15 @@ public class SampleActivity extends AppCompatActivity {
     @BindView(R.id.reInitialize)
     Button reInitialize;
 
+    private LocaleChangerAppCompatDelegate localeChangerAppCompatDelegate;
+
+    @NonNull
     @Override
-    protected void attachBaseContext(Context newBase) {
-        newBase = LocaleChanger.configureBaseContext(newBase);
-        super.attachBaseContext(newBase);
+    public AppCompatDelegate getDelegate() {
+        if (localeChangerAppCompatDelegate == null) {
+            localeChangerAppCompatDelegate = new LocaleChangerAppCompatDelegate(super.getDelegate());
+        }
+        return localeChangerAppCompatDelegate;
     }
 
     @Override
@@ -84,7 +91,7 @@ public class SampleActivity extends AppCompatActivity {
         reInitialize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocaleChanger.initialize(getApplicationContext(), SUPPORTED_LOCALES.subList(0,SUPPORTED_LOCALES.size()-1));
+                LocaleChanger.initialize(getApplicationContext(), SUPPORTED_LOCALES.subList(0, SUPPORTED_LOCALES.size() - 1));
                 LocaleChanger.resetLocale();
                 ActivityRecreationHelper.recreate(SampleActivity.this, true);
             }

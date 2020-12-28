@@ -38,10 +38,16 @@ public void onConfigurationChanged(Configuration newConfig) {
 ```
 And create a new Locale configured `Context` for all your `Activities` calling `configureBaseContext`:
 ```java
+private LocaleChangerAppCompatDelegate localeChangerAppCompatDelegate;
+
+NonNull
 @Override
-protected void attachBaseContext(Context newBase) {
-    newBase = LocaleChanger.configureBaseContext(newBase);
-    super.attachBaseContext(newBase);
+public AppCompatDelegate getDelegate() {
+    if (localeChangerAppCompatDelegate == null) {
+            localeChangerAppCompatDelegate = new LocaleChangerAppCompatDelegate(super.getDelegate());
+    }
+
+    return localeChangerAppCompatDelegate;
 }
 ```
 To change the Locale just make the following call:
@@ -59,7 +65,6 @@ In concrete terms:
 * On the Activity in which you change the language you need to recreate it calling `ActivityRecreationHelper.recreate`.
 * For having the rest of the Activities on the Back Stack recreated automatically when resumed, call `ActivityRecreationHelper.onResume` and `ActivityRecreationHelper.onDestroy` on all your Activities `onResume` and `onDestroy` methods respectively.
 
-
 ### Advanced usage
 The default behavior of the library can be changed providing a `MatchingAlgorithm` and a `LocalePreference`
 * The `MatchingAlgorithm` is used when the library is initialized and when the Locale is changed to find a match between your supported Locales and the system Locales. One of those matching Locales will be set by the library. There are two classes that implements this interface:
@@ -67,6 +72,12 @@ The default behavior of the library can be changed providing a `MatchingAlgorith
   * `ClosestMatchingAlgorithm` will match the two Locales with most attributes in common (language, country and variation).
 
 * The `LocalePreference` is used to select witch one of the two matching Locales will be set. The default behavior is to prefer a supported locales if no preference is provided.
+
+### Quick configuration (not recommended)
+If you want to start really quick and it is not a problem for you to depend on inheritance for this library to work just follow those steps:
+* Make all your Activities inherit from `LocaleChangerBaseActivity`
+* Make your Application class inherit from `LocaleChangerBaseApplication`
+
 
 Known issues
 -------
