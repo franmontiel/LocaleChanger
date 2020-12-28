@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 1.1 *(2020-12-28)*
+--------------------------
+ * Fix issues when using androidX appcompat 1.2.0.
+ * Updated target sdk to API 30.
+
 Version 1.0 *(2020-02-13)*
 ----------------------------
  * Library migrated to AndroidX
