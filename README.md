@@ -40,7 +40,7 @@ And create a new Locale configured `Context` for all your `Activities` calling `
 ```java
 private LocaleChangerAppCompatDelegate localeChangerAppCompatDelegate;
 
-NonNull
+@NonNull
 @Override
 public AppCompatDelegate getDelegate() {
     if (localeChangerAppCompatDelegate == null) {
