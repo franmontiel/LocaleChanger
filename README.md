@@ -36,7 +36,7 @@ public void onConfigurationChanged(Configuration newConfig) {
     LocaleChanger.onConfigurationChanged();
 }
 ```
-And create a new Locale configured `Context` for all your `Activities` calling `configureBaseContext`:
+And create a new Locale configured `Context` for all your `Activities` overriding the `AppCompatDelegate`:
 ```java
 private LocaleChangerAppCompatDelegate localeChangerAppCompatDelegate;
 
